@@ -41,8 +41,30 @@ function shuffle(array) {
  // flipping card
 
  const allCards = document.querySelectorAll('.card');
+ let openCards = []; 
+
  allCards.forEach(card => {
    card.addEventListener('click', function (e) {
-     card.classList.add('show' , 'open');
+     if (!card.classList.contains('open') || !card.classList.contains('show')) {
+       card.classList.add('show' , 'open');
+       openCards.push(card);
+
+       if (openCards.length == 2) {
+         if(openCards[0].childNodes[1].className === openCards[1].childNodes[1].className){
+           openCards.forEach(card => {
+             card.classList.add('match');
+           })
+           openCards=[];
+         }else{
+           //  hide the flipped grids
+           setTimeout(function(){
+             openCards.forEach(card => {
+               card.classList.remove('show' , 'open');
+             })
+               openCards=[];
+           }, 1000);
+         }
+      }
+     }
    });
  });
