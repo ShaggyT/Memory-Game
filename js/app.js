@@ -25,7 +25,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -38,10 +37,25 @@ function shuffle(array) {
  */
 
 
+ // # of moves(oppening two cards will be considered as a move)
+
+ let counter = 0;
+
+ const numberOfMoves = () => {
+   counter ++;
+   const movesText = document.querySelector('.moves')
+   if (counter === 1) {
+     movesText.innerHTML = "1 move"
+   } else {
+     movesText.innerHTML = `${counter} moves`
+   }
+ }
+
+
  // flipping card
 
  const allCards = document.querySelectorAll('.card');
- let openCards = []; 
+ let openCards = [];
 
  allCards.forEach(card => {
    card.addEventListener('click', function (e) {
@@ -50,8 +64,10 @@ function shuffle(array) {
        openCards.push(card);
 
        if (openCards.length == 2) {
+         numberOfMoves();
          if(openCards[0].childNodes[1].className === openCards[1].childNodes[1].className){
            openCards.forEach(card => {
+             card.classList.remove('show', 'open');
              card.classList.add('match');
            })
            openCards=[];
