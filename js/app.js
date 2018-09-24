@@ -100,7 +100,6 @@ function shuffle(array) {
 
        if (openCards.length == 2) {
          numberOfMoves();
-         // if(openCards[0].childNodes[1].className === openCards[1].childNodes[1].className){
          if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
            openCards.forEach(card => {
              card.classList.remove('show', 'open');
@@ -119,4 +118,18 @@ function shuffle(array) {
       }
      }
    });
+ });
+
+
+ //  reset the game
+
+ const reset = document.querySelector('.restart');
+
+ reset.addEventListener('click', function () {
+   const boardGrids = document.querySelectorAll('.card');
+   boardGrids.forEach(grid => {
+     if (grid.classList.contains('open') || grid.classList.contains('show') || grid.classList.contains('match')) {
+       grid.classList.remove('show', 'open', 'match');
+     }
+   })
  });
