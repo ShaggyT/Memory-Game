@@ -3,12 +3,46 @@
  */
 
 
+let cardListIconClasses = [
+'fa-diamond',
+'fa-diamond',
+'fa-paper-plane-o',
+'fa-paper-plane-o',
+'fa-anchor',
+'fa-anchor',
+'fa-bolt',
+'fa-bolt',
+'fa-cube',
+'fa-cube',
+'fa-bomb',
+'fa-bomb',
+'fa-leaf',
+'fa-leaf',
+'fa-bicycle',
+'fa-bicycle'
+];
+
+console.log("shuffle Array cardList Icons", shuffle(cardListIconClasses));
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+const cardDeck = document.getElementById('deck');
+cardDeck.classList.add('deck');
+ let shuffledArray = shuffle(cardListIconClasses);
+
+ for (let i = 0; i < 16; i++) {
+   const newElement = document.createElement('li');
+   newElement.classList.add('card');
+   const iconElement = document.createElement('i');
+   iconElement.classList.add('fa' , shuffledArray[i]);
+   newElement.appendChild(iconElement);
+   cardDeck.appendChild(newElement);
+ }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -56,6 +90,7 @@ function shuffle(array) {
 
  const allCards = document.querySelectorAll('.card');
  let openCards = [];
+ console.log("opne cards", openCards);
 
  allCards.forEach(card => {
    card.addEventListener('click', function (e) {
@@ -65,7 +100,8 @@ function shuffle(array) {
 
        if (openCards.length == 2) {
          numberOfMoves();
-         if(openCards[0].childNodes[1].className === openCards[1].childNodes[1].className){
+         // if(openCards[0].childNodes[1].className === openCards[1].childNodes[1].className){
+         if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
            openCards.forEach(card => {
              card.classList.remove('show', 'open');
              card.classList.add('match');
