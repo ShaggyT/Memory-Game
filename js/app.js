@@ -90,7 +90,8 @@ function shuffle(array) {
 
  const allCards = document.querySelectorAll('.card');
  let openCards = [];
- console.log("opne cards", openCards);
+ let matchedCards = [];
+
 
  allCards.forEach(card => {
    card.addEventListener('click', function (e) {
@@ -104,6 +105,10 @@ function shuffle(array) {
            openCards.forEach(card => {
              card.classList.remove('show', 'open');
              card.classList.add('match');
+             matchedCards.push(card);
+             if(matchedCards.length === 16) {
+               alert("Congratulations .... You win!!");
+             }
            })
            openCards=[];
          }else{
@@ -132,4 +137,5 @@ function shuffle(array) {
        grid.classList.remove('show', 'open', 'match');
      }
    })
+   numberOfMoves(counter = -1);
  });
