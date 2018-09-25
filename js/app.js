@@ -86,6 +86,8 @@ function shuffle(array) {
  }
 
 
+
+
  // flipping card
 
  const allCards = document.querySelectorAll('.card');
@@ -107,7 +109,9 @@ function shuffle(array) {
              card.classList.add('match');
              matchedCards.push(card);
              if(matchedCards.length === 16) {
-               alert("Congratulations .... You win!!");
+               setTimeout(function () {
+                  alert("Congratulations .... You win!!");
+               }, 10);
              }
            })
            openCards=[];
@@ -139,3 +143,14 @@ function shuffle(array) {
    })
    numberOfMoves(counter = -1);
  });
+
+
+// Start Button
+
+const header = document.querySelector('.header')
+const btn = document.createElement("BUTTON");        // Create a <button> element
+const btnText = document.createTextNode("start");       // Create a text node
+btn.appendChild(btnText);                                // Append the text to <button>
+header.appendChild(btn);
+btn.classList.add('btn');
+btn.setAttribute("style", "bvertical-align:middle;");
