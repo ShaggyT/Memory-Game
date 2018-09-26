@@ -121,7 +121,7 @@ h1 {
   text-align: center;
 }
 
-.btn {
+.start-btn {
    color: #02ccba;
    background: transparent;
    border: 2px solid #02ccba;
@@ -139,7 +139,7 @@ h1 {
    margin-bottom: 20px;
 }
 
-.btn:hover {
+.start-btn:hover {
    background-color: #02ccba;
    color: white;
 }

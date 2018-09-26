@@ -22,8 +22,6 @@ let cardListIconClasses = [
 'fa-bicycle'
 ];
 
-console.log("shuffle Array cardList Icons", shuffle(cardListIconClasses));
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -147,10 +145,29 @@ function shuffle(array) {
 
 // Start Button
 
-const header = document.querySelector('.header')
+const header = document.querySelector('.header');
 const btn = document.createElement("BUTTON");        // Create a <button> element
 const btnText = document.createTextNode("start");       // Create a text node
 btn.appendChild(btnText);                                // Append the text to <button>
 header.appendChild(btn);
-btn.classList.add('btn');
+btn.classList.add('start-btn');
 btn.setAttribute("style", "bvertical-align:middle;");
+
+
+//  show all the cards
+
+const startBtn = document.querySelector('.start-btn');
+startBtn.addEventListener('click', function () {
+  const cards = document.getElementsByClassName('card');
+  const cardsArray = Array.from(cards);
+  setTimeout(function () {
+    for (let card of cardsArray) {
+      card.classList.add('show', 'open');
+    }
+  }, 100);
+  setTimeout(function () {
+    for (let card of cardsArray) {
+      card.classList.remove('show', 'open');
+    }
+  }, 3000);
+});
