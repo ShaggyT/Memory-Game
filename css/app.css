@@ -121,7 +121,7 @@ h1 {
   text-align: center;
 }
 
-.start-btn {
+.start-btn, .stop-btn {
    color: #02ccba;
    background: transparent;
    border: 2px solid #02ccba;
@@ -139,7 +139,13 @@ h1 {
    margin-bottom: 20px;
 }
 
-.start-btn:hover {
+.start-btn:hover, .stop-btn:hover {
    background-color: #02ccba;
    color: white;
+}
+
+.hintBtn {
+  float: right;
+  cursor: pointer;
+  margin-right: 25px;
 }

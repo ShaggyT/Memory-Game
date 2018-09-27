@@ -108,8 +108,11 @@ function shuffle(array) {
              matchedCards.push(card);
              if(matchedCards.length === 16) {
                setTimeout(function () {
-                  alert("Congratulations .... You win!!");
-               }, 10);
+                 let timeTakenToFinish = playDuration.split(" : ");
+                 console.log("helloooo", timeTakenToFinish);
+                  alert(`Congratulations .... You win!! it took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
+                  stop();
+               }, 100);
              }
            })
            openCards=[];
@@ -138,8 +141,11 @@ function shuffle(array) {
      if (grid.classList.contains('open') || grid.classList.contains('show') || grid.classList.contains('match')) {
        grid.classList.remove('show', 'open', 'match');
      }
+
    })
+
    numberOfMoves(counter = -1);
+   stopWatch.innerHTML = "00:00:00"
  });
 
 
@@ -152,9 +158,9 @@ btn.appendChild(btnText);                                // Append the text to <
 header.appendChild(btn);
 btn.classList.add('start-btn');
 btn.setAttribute("style", "bvertical-align:middle;");
+btn.setAttribute("id", "startBtn");
 
-
-//  show all the cards
+//  Cards preview
 
 const startBtn = document.querySelector('.start-btn');
 startBtn.addEventListener('click', function () {
@@ -170,4 +176,86 @@ startBtn.addEventListener('click', function () {
       card.classList.remove('show', 'open');
     }
   }, 3000);
+  start();
+});
+
+// Stop Button
+
+const stopBtn = document.createElement("BUTTON");        // Create a <button> element
+const stopBtnText = document.createTextNode("stop");       // Create a text node
+stopBtn.appendChild(stopBtnText);                                // Append the text to <button>
+header.appendChild(stopBtn);
+stopBtn.classList.add('stop-btn');
+stopBtn.setAttribute("style", "bvertical-align:middle;");
+stopBtn.addEventListener('click', function () {
+  stop();
+})
+
+//  Timer
+const stopWatch = document.createElement('h1');
+header.appendChild(stopWatch);
+stopWatch.setAttribute("id", "timerLabel");
+stopWatch.innerHTML = "00:00:00"
+
+let status = 0; // 0:stop 1:running
+let time = 0;
+
+console.log("status-0", status);
+function start() {
+  status = 1;
+
+  setTimeout(function () {
+    timer();
+    console.log('status-1', status);
+  }, 3200);
+}
+
+function stop() {
+  status = 0;
+}
+
+let playDuration;
+function timer() {
+  if(status == 1){
+    setTimeout(function(){
+      time++;
+      let min = Math.floor(time/100/60);
+      let sec = Math.floor(time/100);
+      let mSec = time % 100;
+
+      if(min < 10) {
+        min = "0" +min;
+      }
+      if(sec >= 60) {
+        sec = sec %60;
+      }
+      if(sec < 10) {
+        sec = "0" +sec;
+      }
+
+      playDuration = document.getElementById("timerLabel").innerHTML = `${min} : ${sec} : ${mSec}`;
+      timer();
+    }, 10 ) // delay = 10
+  }
+}
+
+// Hint
+
+const hintBtn = document.querySelector(".hintBtn");
+
+hintBtn.addEventListener('click', function () {
+  let randomIndex =   Math.floor(Math.random()*16);
+  let firstHint = allCards[randomIndex]
+  let firstHintAddClass = firstHint.classList.add('show', 'open', 'hint');
+  allCards.forEach(card => {
+    if (!card.classList.contains('open') && !card.classList.contains('hint') && (card.childNodes[0].classList.value.split(" ")[1] === allCards[randomIndex].childNodes[0].classList.value.split(" ")[1])) {
+      card.classList.add('show' , 'open', 'hint');
+    }
+    setTimeout(function () {
+      let firstHintRemoveClass = firstHint.classList.remove('show', 'open');
+      card.classList.remove('show' , 'open');
+    }, 2000);
+
+  })
+  
 });
