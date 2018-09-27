@@ -37,6 +37,9 @@ h1 {
  * Styles for the deck of cards
  */
 
+.fa-star {
+  color:gold;
+}
 .deck {
     width: 660px;
     min-height: 680px;

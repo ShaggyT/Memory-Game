@@ -81,6 +81,22 @@ function shuffle(array) {
    } else {
      movesText.innerHTML = `${counter} moves`
    }
+   console.log("count", counter);
+   const stars = document.querySelector('.stars');
+   console.log("starsss", stars);
+   if (counter == 8) {
+     setTimeout(function () {
+       alert("Game Over!!");
+       stop();
+     },100)
+
+   } else if (counter == 6) {
+     let secondStar = document.getElementsByClassName('fa-star')[1];
+     secondStar.classList.remove('fa-star');
+   } else if (counter == 4) {
+     let firstStar = document.getElementsByClassName('fa-star')[0];
+     firstStar.classList.remove('fa-star');
+   }
  }
 
 
@@ -257,5 +273,5 @@ hintBtn.addEventListener('click', function () {
     }, 2000);
 
   })
-  
+
 });
