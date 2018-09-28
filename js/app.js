@@ -69,7 +69,7 @@ function shuffle(array) {
  */
 
 
- // # of moves(oppening two cards will be considered as a move)
+ // # of moves(flipping two cards will be considered as a move)
 
  let counter = 0;
 
@@ -81,9 +81,7 @@ function shuffle(array) {
    } else {
      movesText.innerHTML = `${counter} moves`
    }
-   console.log("count", counter);
    const stars = document.querySelector('.stars');
-   console.log("starsss", stars);
    const starElement = document.getElementsByClassName('fa-star');
    if (counter == 12) {
      setTimeout(function () {
@@ -111,13 +109,12 @@ function shuffle(array) {
  btn.setAttribute("style", "bvertical-align:middle;");
  btn.setAttribute("id", "startBtn");
 
- //  Cards preview
+ //  Cards preview when starting the game
 
  const startBtn = document.querySelector('.start-btn');
  startBtn.addEventListener('click', function () {
    const cards = document.getElementsByClassName('card');
    const cardsArray = Array.from(cards);
-   console.log("CardsArray", cardsArray);
    setTimeout(function () {
      for (let card of cardsArray) {
        card.classList.add('show', 'open');
@@ -132,7 +129,7 @@ function shuffle(array) {
  });
 
 
- // flipping card
+ // flipping cards
 
  const allCards = document.querySelectorAll('.card');
  let openCards = [];
@@ -197,10 +194,9 @@ function shuffle(array) {
      }
 
    })
-
    numberOfMoves(counter = -1);
-   console.log("what am I", stopWatch.innerHTML);
-   stopWatch.innerHTML = "00:00:00"
+   stopWatch.innerHTML = "00:00:00";
+   location.reload();
  });
 
 

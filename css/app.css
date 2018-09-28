@@ -226,7 +226,7 @@ div ul:hover .card {
   box-shadow: 0 20px 20px rgba(50,50,50,.2);
 }
 
-/* Responsiveness  */
+/* Media queries  */
 
 @media only screen and (max-width: 700px) {
 	.score-panel {
