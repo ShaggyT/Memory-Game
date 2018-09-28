@@ -18,8 +18,6 @@ The game board consists of sixteen "cards" arranged in a grid. The deck is made 
   - If the cards do not match, both cards are flipped face down.
   - The game ends once all cards have been correctly matched.
 
-
-
 ## Installation
 
 - Download or clone the repository
@@ -28,3 +26,7 @@ The game board consists of sixteen "cards" arranged in a grid. The deck is made 
 ```
 
 ###  Screenshots
+
+<img src="img/screenshot1.png" width=294 margin=5 style="margin: 0px 5px">
+<img src="img/screenshot2.png" width=300 style="margin: 0px 5px">
+<img src="img/screenshot3.png" width=300 style="margin: 0px 5px">
