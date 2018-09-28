@@ -84,22 +84,52 @@ function shuffle(array) {
    console.log("count", counter);
    const stars = document.querySelector('.stars');
    console.log("starsss", stars);
-   if (counter == 8) {
+   const starElement = document.getElementsByClassName('fa-star');
+   if (counter == 12) {
      setTimeout(function () {
        alert("Game Over!!");
        stop();
      },100)
-
-   } else if (counter == 6) {
-     let secondStar = document.getElementsByClassName('fa-star')[1];
+   } else if (counter == 9) {
+     let secondStar = starElement[1];
      secondStar.classList.remove('fa-star');
-   } else if (counter == 4) {
-     let firstStar = document.getElementsByClassName('fa-star')[0];
+   } else if (counter == 6) {
+     let firstStar = starElement[0];
      firstStar.classList.remove('fa-star');
    }
  }
 
 
+ // Start Button
+
+ const header = document.querySelector('.header');
+ const btn = document.createElement("BUTTON");        // Create a <button> element
+ const btnText = document.createTextNode("start");       // Create a text node
+ btn.appendChild(btnText);                                // Append the text to <button>
+ header.appendChild(btn);
+ btn.classList.add('start-btn');
+ btn.setAttribute("style", "bvertical-align:middle;");
+ btn.setAttribute("id", "startBtn");
+
+ //  Cards preview
+
+ const startBtn = document.querySelector('.start-btn');
+ startBtn.addEventListener('click', function () {
+   const cards = document.getElementsByClassName('card');
+   const cardsArray = Array.from(cards);
+   console.log("CardsArray", cardsArray);
+   setTimeout(function () {
+     for (let card of cardsArray) {
+       card.classList.add('show', 'open');
+     }
+   }, 100);
+   setTimeout(function () {
+     for (let card of cardsArray) {
+       card.classList.remove('show', 'open');
+     }
+   }, 3000);
+   start();
+ });
 
 
  // flipping card
@@ -108,41 +138,49 @@ function shuffle(array) {
  let openCards = [];
  let matchedCards = [];
 
+ startBtn.addEventListener('click', function () {
+   allCards.forEach(card => {
+     card.addEventListener('click', function () {
+       card.classList.add('flipInY');
+       if(openCards.length < 2){
+         if (!card.classList.contains('open') || !card.classList.contains('show')) {
+           card.classList.add('show' , 'open');
+           openCards.push(card);
 
- allCards.forEach(card => {
-   card.addEventListener('click', function (e) {
-     if (!card.classList.contains('open') || !card.classList.contains('show')) {
-       card.classList.add('show' , 'open');
-       openCards.push(card);
-
-       if (openCards.length == 2) {
-         numberOfMoves();
-         if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
-           openCards.forEach(card => {
-             card.classList.remove('show', 'open');
-             card.classList.add('match');
-             matchedCards.push(card);
-             if(matchedCards.length === 16) {
-               setTimeout(function () {
-                 let timeTakenToFinish = playDuration.split(" : ");
-                 console.log("helloooo", timeTakenToFinish);
-                  alert(`Congratulations .... You win!! it took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
-                  stop();
-               }, 100);
-             }
-           })
-           openCards=[];
-         }else{
-           //  hide the flipped grids
-           setTimeout(function(){
-             openCards.forEach(card => {
-               card.classList.remove('show' , 'open');
-             })
+           if (openCards.length == 2) {
+             numberOfMoves();
+             // If cards match
+             if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
+               openCards.forEach(card => {
+                 card.classList.remove('show', 'open');
+                 card.classList.add('match', "bounceIn");
+                 matchedCards.push(card);
+                 if(matchedCards.length === 16) {
+                   setTimeout(function () {
+                     let timeTakenToFinish = playDuration.split(" : ");
+                      alert(`Congratulations .... You win!! it took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
+                      stop();
+                   }, 100);
+                 }
+               })
                openCards=[];
-           }, 1000);
+               // If cards don't match
+             } else {
+               openCards[0].classList.add('shake', 'incorrect');
+               openCards[1].classList.add('shake', 'incorrect');
+
+               setTimeout(function(){
+                 openCards.forEach(card => {
+                   card.classList.remove('show' , 'open', 'shake', 'incorrect');
+                 })
+                   openCards=[];
+               }, 1000);
+             }
+          }
          }
-      }
-     }
+       }
+
+     });
    });
  });
 
@@ -155,45 +193,16 @@ function shuffle(array) {
    const boardGrids = document.querySelectorAll('.card');
    boardGrids.forEach(grid => {
      if (grid.classList.contains('open') || grid.classList.contains('show') || grid.classList.contains('match')) {
-       grid.classList.remove('show', 'open', 'match');
+       grid.classList.remove('show', 'open', 'match', 'bouncIn', 'flipInY');
      }
 
    })
 
    numberOfMoves(counter = -1);
+   console.log("what am I", stopWatch.innerHTML);
    stopWatch.innerHTML = "00:00:00"
  });
 
-
-// Start Button
-
-const header = document.querySelector('.header');
-const btn = document.createElement("BUTTON");        // Create a <button> element
-const btnText = document.createTextNode("start");       // Create a text node
-btn.appendChild(btnText);                                // Append the text to <button>
-header.appendChild(btn);
-btn.classList.add('start-btn');
-btn.setAttribute("style", "bvertical-align:middle;");
-btn.setAttribute("id", "startBtn");
-
-//  Cards preview
-
-const startBtn = document.querySelector('.start-btn');
-startBtn.addEventListener('click', function () {
-  const cards = document.getElementsByClassName('card');
-  const cardsArray = Array.from(cards);
-  setTimeout(function () {
-    for (let card of cardsArray) {
-      card.classList.add('show', 'open');
-    }
-  }, 100);
-  setTimeout(function () {
-    for (let card of cardsArray) {
-      card.classList.remove('show', 'open');
-    }
-  }, 3000);
-  start();
-});
 
 // Stop Button
 
@@ -216,13 +225,11 @@ stopWatch.innerHTML = "00:00:00"
 let status = 0; // 0:stop 1:running
 let time = 0;
 
-console.log("status-0", status);
 function start() {
   status = 1;
 
   setTimeout(function () {
     timer();
-    console.log('status-1', status);
   }, 3200);
 }
 
