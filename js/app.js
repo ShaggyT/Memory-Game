@@ -72,6 +72,7 @@ function shuffle(array) {
  // # of moves(flipping two cards will be considered as a move)
 
  let counter = 0;
+ let star = 3;
 
  const numberOfMoves = () => {
    counter ++;
@@ -83,18 +84,33 @@ function shuffle(array) {
    }
    const stars = document.querySelector('.stars');
    const starElement = document.getElementsByClassName('fa-star');
-   if (counter == 12) {
-     setTimeout(function () {
-       alert("Game Over!!");
-       stop();
-     },100)
-   } else if (counter == 9) {
-     let secondStar = starElement[1];
-     secondStar.classList.remove('fa-star');
-   } else if (counter == 6) {
-     let firstStar = starElement[0];
-     firstStar.classList.remove('fa-star');
-   }
+   setTimeout(function () {
+     if (counter == 12) {
+       if(matchedCards.length !== 16){
+         setTimeout(function () {
+           alert("Game Over!!");
+           stop();
+         },100)
+       } else {
+         setTimeout(function () {
+           let timeTakenToFinish = playDuration.split(" : ");
+           // findWinner();
+            alert(`Congratulations! You Won!!! With 12 Moves ${star} Stars. It took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
+            stop();
+         }, 100);
+       }
+     } else if (counter == 9) {
+       let secondStar = starElement[1];
+       secondStar.classList.remove('fa-star');
+       star --;
+     } else if (counter == 6) {
+       let firstStar = starElement[0];
+       firstStar.classList.remove('fa-star');
+       star --;
+     }
+   }, 100);
+
+   return counter;
  }
 
 
@@ -112,26 +128,36 @@ function shuffle(array) {
  //  Cards preview when starting the game
 
  const startBtn = document.querySelector('.start-btn');
- startBtn.addEventListener('click', function () {
-   const cards = document.getElementsByClassName('card');
-   const cardsArray = Array.from(cards);
-   setTimeout(function () {
-     for (let card of cardsArray) {
-       card.classList.add('show', 'open');
-     }
-   }, 100);
-   setTimeout(function () {
-     for (let card of cardsArray) {
-       card.classList.remove('show', 'open');
-     }
-   }, 3000);
-   start();
- });
 
+ startBtn.addEventListener('click', function () {
+   if (!startBtn.classList.contains('clicked')){
+     startBtn.classList.add('clicked');
+     const cards = document.getElementsByClassName('card');
+     const cardsArray = Array.from(cards);
+
+       setTimeout(function () {
+         for (let card of cardsArray) {
+           card.classList.add('show', 'open');
+         }
+       }, 100);
+
+       setTimeout(function () {
+         for (let card of cardsArray) {
+           card.classList.remove('show', 'open');
+         }
+       }, 3000);
+    start();
+   } else {
+     console.log("are we getting here");
+     start();
+   }
+ });
 
  // flipping cards
 
  const allCards = document.querySelectorAll('.card');
+ const allCardsArray = Array.from(allCards);
+
  let openCards = [];
  let matchedCards = [];
 
@@ -141,7 +167,7 @@ function shuffle(array) {
        card.classList.add('flipInY');
        if(openCards.length < 2){
          if (!card.classList.contains('open') || !card.classList.contains('show')) {
-           card.classList.add('show' , 'open');
+           card.classList.add('show' , 'open', 'flipInY');
            openCards.push(card);
 
            if (openCards.length == 2) {
@@ -149,13 +175,13 @@ function shuffle(array) {
              // If cards match
              if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
                openCards.forEach(card => {
-                 card.classList.remove('show', 'open');
+                 card.classList.remove('show', 'open', 'flipInY');
                  card.classList.add('match', "bounceIn");
                  matchedCards.push(card);
-                 if(matchedCards.length === 16) {
+                 if(matchedCards.length === 16 && counter !== 12) {
                    setTimeout(function () {
                      let timeTakenToFinish = playDuration.split(" : ");
-                      alert(`Congratulations .... You win!! it took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
+                      alert(`Congratulations! You Wonn!!! With ${counter} Moves ${star} Stars. It took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
                       stop();
                    }, 100);
                  }
@@ -168,7 +194,7 @@ function shuffle(array) {
 
                setTimeout(function(){
                  openCards.forEach(card => {
-                   card.classList.remove('show' , 'open', 'shake', 'incorrect');
+                   card.classList.remove('show' , 'open', 'shake', 'incorrect', 'flipInY');
                  })
                    openCards=[];
                }, 1000);
@@ -226,7 +252,7 @@ function start() {
 
   setTimeout(function () {
     timer();
-  }, 3200);
+  }, 100);
 }
 
 function stop() {
@@ -263,18 +289,20 @@ function timer() {
 const hintBtn = document.querySelector(".hintBtn");
 
 hintBtn.addEventListener('click', function () {
+
   let randomIndex =   Math.floor(Math.random()*16);
-  let firstHint = allCards[randomIndex]
-  let firstHintAddClass = firstHint.classList.add('show', 'open', 'hint');
-  allCards.forEach(card => {
-    if (!card.classList.contains('open') && !card.classList.contains('hint') && (card.childNodes[0].classList.value.split(" ")[1] === allCards[randomIndex].childNodes[0].classList.value.split(" ")[1])) {
-      card.classList.add('show' , 'open', 'hint');
-    }
-    setTimeout(function () {
-      let firstHintRemoveClass = firstHint.classList.remove('show', 'open');
-      card.classList.remove('show' , 'open');
-    }, 2000);
-
-  })
-
+  let randomCard = allCards[randomIndex];
+  if (!randomCard.classList.contains('match') && !randomCard.classList.contains('hint')) {
+    let firstHint = allCards[randomIndex];
+    let firstHintAddClass = firstHint.classList.add('show', 'open', 'hint', 'fadeIn', 'flipInY');
+    allCards.forEach(card => {
+      if ( (card.childNodes[0].classList.value.split(" ")[1] === allCards[randomIndex].childNodes[0].classList.value.split(" ")[1])) {
+        card.classList.add('show' , 'open', 'hint', 'fadeIn', 'flipInY');
+      }
+      setTimeout(function () {
+        let firstHintRemoveClass = firstHint.classList.remove('show', 'open', 'fadeIn', 'flipInY');
+        card.classList.remove('show' , 'open', 'fadeIn', 'flipInY');
+      }, 2000);
+    })
+  }
 });
