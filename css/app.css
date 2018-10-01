@@ -1,11 +1,11 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
@@ -17,21 +17,21 @@ body {
 }
 
 body {
-
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+  /* Background pattern from Subtle Patterns  */
+  background: #ffffff url('../img/grey.png');
+  font-family: 'Coda', cursive;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
 }
 
 /*
@@ -43,47 +43,47 @@ h1 {
   color: gold;
 }
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #2e3d49;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #2e3d49;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .deck .card.open {
-    transform: rotateY(0);
-    background: #02b3e4;
-    cursor: default;
+  transform: rotateY(0);
+  background: #02b3e4;
+  cursor: default;
 }
 
 .deck .card.show {
-    font-size: 33px;
+  font-size: 33px;
 }
 
 .deck .card.match {
-    cursor: default;
-    background: #02ccba;
-    font-size: 33px;
+  cursor: default;
+  background: #02ccba;
+  font-size: 33px;
 }
 
 
@@ -106,6 +106,7 @@ h1 {
   padding: 0;
   margin-right: 5px;
   display: inline-block;
+
 }
 
 .score-panel .stars li {
@@ -121,7 +122,6 @@ h1 {
   float: right;
   cursor: pointer;
   color: Black;
-  font-size: 15px;
   margin-bottom: 10px;
 }
 
@@ -176,23 +176,22 @@ h1 {
 }
 
 .start-btn:hover, .stop-btn:hover {
-   background-color: #02ccba;
-   color: white;
+ background-color: #02ccba;
+ color: white;
 }
 
 #timerLabel {
-  font-size: 25px;
-  margin-bottom: 20px;
+font-size: 22px;
+color: gray;
+margin-bottom: 20px;
 }
 
 .hintBtn {
   float: right;
   cursor: pointer;
   margin-right: 25px;
-  font-size: 15px;
   color:black;
-  /* opacity: 0.2; */
- transition: 0.3s;
+  transition: 0.3s;
 }
 
 .hintBtn :hover {
@@ -236,16 +235,14 @@ div ul:hover .card {
   .deck {
     margin-left: 15px;
     margin-right: 15px;
-      /* width: 89%; */
-      padding: 16px;
-      width: auto;
-
-      min-height: 100vw;
+    padding: 16px;
+    width: auto;
+    min-height: 100vw;
   }
 
   .deck .card {
-      width: 20vw;
-      height: 20vw;
+    width: 20vw;
+    height: 20vw;
   }
 }
 
@@ -261,7 +258,6 @@ div ul:hover .card {
   #moves{
     font-size: 20px;
     margin-bottom: 10px;
-
   }
 }
 
@@ -508,4 +504,172 @@ div ul:hover .card {
 @keyframes fadeIn {
   0% {opacity: 0;}
   100% {opacity: 1;}
+}
+
+/* Winning modal */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 0; /* Location of the box */
+  margin: 0 auto;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.result-modal-content {
+  background-color: white;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Helvetica';
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 1.5s;
+  animation-name: animatetop;
+  animation-duration: 1.5s;
+}
+
+
+/* Animation */
+
+@-webkit-keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+.result-modal-content h1 {
+  font-size: 1.5em;
+  padding-top: 3em;
+  font-weight: bolder;
+}
+
+#play-again {
+  background: white;
+  font-size: 16px;
+  font-weight: normal;
+  color: #02ccba;
+  border: #6F6F6F;
+  padding: 10px 25px;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: box-shadow 0.5s;
+  box-shadow: 7px 7px 30px #999999;
+}
+
+#play-again:hover {
+  box-shadow: 3px 3px 8px #6F6F6F;
+  background-color: #02ccba;
+  color: white;
+  cursor: pointer;
+}
+
+/* Modal's Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* Circle Loader */
+
+.circle-loader {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-left-color: #02ccba;
+  animation-name: loader-spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 200px;
+}
+
+.circle-loader,
+.circle-loader:after {
+  border-radius: 50%;
+  width: 8em;
+  height: 8em;
+}
+
+.load-complete {
+  -webkit-animation: none;
+  animation: none;
+  border-color: #02ccba;
+  transition: border 500ms ease-out;
+}
+
+.checkmark {
+  display: none;
+}
+.checkmark.draw:after {
+  animation-duration: 800ms;
+  animation-timing-function: ease;
+  animation-name: checkmark;
+  transform: scaleX(-1) rotate(135deg);
+}
+.checkmark:after {
+  opacity: 1;
+  height: 4em;
+  width: 2em;
+  transform-origin: left top;
+  border-right: 2px solid #02ccba;
+  border-top: 2px solid #02ccba;
+  content: '';
+  left: 2em;
+  top: 4em;
+  position: absolute;
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 2em;
+    opacity: 1;
+  }
+  40% {
+    height: 4em;
+    width: 2em;
+    opacity: 1;
+  }
+  100% {
+    height: 4em;
+    width: 2em;
+    opacity: 1;
+  }
 }

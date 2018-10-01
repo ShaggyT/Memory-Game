@@ -44,7 +44,7 @@ cardDeck.classList.add('deck');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -87,16 +87,10 @@ function shuffle(array) {
    setTimeout(function () {
      if (counter == 12) {
        if(matchedCards.length !== 16){
-         setTimeout(function () {
-           alert("Game Over!!");
-           stop();
-         },100)
+        lose();
        } else {
          setTimeout(function () {
-           let timeTakenToFinish = playDuration.split(" : ");
-           // findWinner();
-            alert(`Congratulations! You Won!!! With 12 Moves ${star} Stars. It took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
-            stop();
+           win();
          }, 100);
        }
      } else if (counter == 9) {
@@ -128,12 +122,12 @@ function shuffle(array) {
  //  Cards preview when starting the game
 
  const startBtn = document.querySelector('.start-btn');
+ const cards = document.getElementsByClassName('card');
+ const cardsArray = Array.from(cards);
 
  startBtn.addEventListener('click', function () {
    if (!startBtn.classList.contains('clicked')){
      startBtn.classList.add('clicked');
-     const cards = document.getElementsByClassName('card');
-     const cardsArray = Array.from(cards);
 
        setTimeout(function () {
          for (let card of cardsArray) {
@@ -148,7 +142,6 @@ function shuffle(array) {
        }, 3000);
     start();
    } else {
-     console.log("are we getting here");
      start();
    }
  });
@@ -156,7 +149,6 @@ function shuffle(array) {
  // flipping cards
 
  const allCards = document.querySelectorAll('.card');
- const allCardsArray = Array.from(allCards);
 
  let openCards = [];
  let matchedCards = [];
@@ -179,11 +171,7 @@ function shuffle(array) {
                  card.classList.add('match', "bounceIn");
                  matchedCards.push(card);
                  if(matchedCards.length === 16 && counter !== 12) {
-                   setTimeout(function () {
-                     let timeTakenToFinish = playDuration.split(" : ");
-                      alert(`Congratulations! You Wonn!!! With ${counter} Moves ${star} Stars. It took you ${timeTakenToFinish[0]} min, ${timeTakenToFinish[1]} sec, and ${timeTakenToFinish[2]} mSec`);
-                      stop();
-                   }, 100);
+                   win();
                  }
                })
                openCards=[];
@@ -247,7 +235,7 @@ stopWatch.innerHTML = "00:00:00"
 let status = 0; // 0:stop 1:running
 let time = 0;
 
-function start() {
+const start = () => {
   status = 1;
 
   setTimeout(function () {
@@ -255,12 +243,13 @@ function start() {
   }, 100);
 }
 
-function stop() {
+const stop = () => {
   status = 0;
 }
 
 let playDuration;
-function timer() {
+
+const timer = () => {
   if(status == 1){
     setTimeout(function(){
       time++;
@@ -306,3 +295,60 @@ hintBtn.addEventListener('click', function () {
     })
   }
 });
+
+// Win modal when game is complete
+const message = document.querySelector('.message');
+const rating = document.querySelector('.rating');
+
+const resultModal = () => {
+  let modal = document.getElementById('result-modal');
+  setTimeout(function () {
+    toggleCheckmark()
+  },500)
+  const playAgainBtn = document.querySelector('#play-again');
+   playAgainBtn.addEventListener('click', function() {
+     location.reload()
+   })
+  let span = document.getElementsByClassName('close')[0];
+  modal.style.display = "block";
+// When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+    stopWatch.innerHTML = "00:00:00";
+    location.reload();
+  }
+  stop();
+}
+
+const win = () => {
+  setTimeout(function () {
+    counter;
+    star;
+    let timeTakenToFinish = playDuration.split(" : ");
+    message.innerHTML = "Congratulations! You Won!!!"
+    rating.innerHTML = `With ${counter} moves and ${star} stars!`;
+    resultModal();
+  }, 1000);
+}
+
+
+//  Circle Loader toggle
+
+const toggleCheckmark = () => {
+  let circleLoader = document.querySelector('.circle-loader');
+  circleLoader.classList.toggle('load-complete');
+  let checkmark = document.querySelector('.checkmark');
+  $('.checkmark').toggle();
+}
+
+// Lose modal when game is complete
+
+const lose = () => {
+  setTimeout(function () {
+    counter;
+    star;
+    let timeTakenToFinish = playDuration.split(" : ");
+    message.innerHTML = "Game Over!!!"
+    resultModal();
+  }, 1000);
+}
