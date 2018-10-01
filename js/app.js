@@ -5,22 +5,16 @@
 
 let cardListIconClasses = [
 'fa-diamond',
-'fa-diamond',
-'fa-paper-plane-o',
 'fa-paper-plane-o',
 'fa-anchor',
-'fa-anchor',
-'fa-bolt',
 'fa-bolt',
 'fa-cube',
-'fa-cube',
-'fa-bomb',
 'fa-bomb',
 'fa-leaf',
-'fa-leaf',
-'fa-bicycle',
 'fa-bicycle'
 ];
+
+doublecardListIconClasses = cardListIconClasses.concat(cardListIconClasses); 
 
 /*
  * Display the cards on the page
@@ -31,7 +25,7 @@ let cardListIconClasses = [
 
 const cardDeck = document.getElementById('deck');
 cardDeck.classList.add('deck');
- let shuffledArray = shuffle(cardListIconClasses);
+ let shuffledArray = shuffle(doublecardListIconClasses);
 
  for (let i = 0; i < 16; i++) {
    const newElement = document.createElement('li');
@@ -210,7 +204,8 @@ function shuffle(array) {
    })
    numberOfMoves(counter = -1);
    stopWatch.innerHTML = "00:00:00";
-   location.reload();
+   star = 3;
+   // location.reload();
  });
 
 
@@ -352,3 +347,27 @@ const lose = () => {
     resultModal();
   }, 1000);
 }
+
+// Instruction
+const instruction = document.querySelector('.instruction-message');
+let steps = document.querySelector('.steps');
+console.log("stepsss", steps);
+
+const instructionModal = () => {
+  let modal = document.getElementById('instruction-modal');
+  let span = document.getElementsByClassName('close-instruction')[0];
+  modal.style.display = "block";
+// When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  instruction.innerHTML = "How to Play"
+
+
+}
+
+const headerTitle = document.querySelector('.header-title');
+
+headerTitle.addEventListener('click', function () {
+  instructionModal();
+})
