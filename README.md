@@ -1,7 +1,7 @@
 # Memory Game
 This is the project for Udacity's [ Front-End Web Developer](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) Nanodegree Program. It was developed using HTMl, CSS, and JavaScript. It focuses on DOM manipulation and object-oriented programming.
 
-To play the game, [Click Here!](https://github.com/ShaggyT/Memory-Game)  
+To play the game, [Click Here!](https://priceless-ptolemy-9a4a35.netlify.com/)  
 
 ## Project Overview
 
