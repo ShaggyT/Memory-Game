@@ -41,7 +41,7 @@ The game board consists of sixteen "cards" arranged in a grid. The deck is made 
   3. View in your browser
 
 ###  Live Preview
-To play the game, [Click Here!](memorygameudacity.netlify.com)
+To play the game, [Click Here!](https://memorygameudacity.netlify.com)
 
 ###  Screenshots
 
