@@ -204,8 +204,8 @@ function shuffle(array) {
    })
    numberOfMoves(counter = -1);
    stopWatch.innerHTML = "00:00:00";
-   star = 3;
-   // location.reload();
+   // star = 3;
+   location.reload();
  });
 
 
