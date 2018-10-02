@@ -535,6 +535,9 @@ div ul:hover .card {
   animation-name: animatetop;
   animation-duration: 1.5s;
 }
+.rating {
+  color: rgba(0,0,0,0.5);
+}
 
 
 /* Animation */
@@ -553,13 +556,14 @@ div ul:hover .card {
   font-size: 1.5em;
   padding-top: 3em;
   font-weight: bolder;
+  color: rgba(0,0,0,0.5);
 }
 
 #play-again {
-  background: white;
+  background: #02ccba;
   font-size: 16px;
   font-weight: normal;
-  color: #02ccba;
+  color: white;
   border: #6F6F6F;
   padding: 10px 25px;
   border-radius: 4px;
@@ -570,8 +574,8 @@ div ul:hover .card {
 
 #play-again:hover {
   box-shadow: 3px 3px 8px #6F6F6F;
-  background-color: #02ccba;
-  color: white;
+  background-color: white;
+  color: #02ccba;
   cursor: pointer;
 }
 
@@ -618,7 +622,7 @@ div ul:hover .card {
 .load-complete {
   -webkit-animation: none;
   animation: none;
-  border-color: #02ccba;
+  border-color: 	rgba(220,220,220,0.5);
   transition: border 500ms ease-out;
 }
 
@@ -739,8 +743,3 @@ ol li::before {
   text-decoration: none;
   cursor: pointer;
 }
-
-/* body {
-  padding: 1rem;
-  font-family: sans-serif;
-} */

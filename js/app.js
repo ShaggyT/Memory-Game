@@ -149,42 +149,44 @@ function shuffle(array) {
 
  startBtn.addEventListener('click', function () {
    allCards.forEach(card => {
+
      card.addEventListener('click', function () {
-       card.classList.add('flipInY');
-       if(openCards.length < 2){
-         if (!card.classList.contains('open') || !card.classList.contains('show')) {
-           card.classList.add('show' , 'open', 'flipInY');
-           openCards.push(card);
+       if (!card.classList.contains('match')){
+         card.classList.add('flipInY');
+         if(openCards.length < 2){
+           if (!card.classList.contains('open') || !card.classList.contains('show')) {
+             card.classList.add('show' , 'open', 'flipInY');
+             openCards.push(card);
 
-           if (openCards.length == 2) {
-             numberOfMoves();
-             // If cards match
-             if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
-               openCards.forEach(card => {
-                 card.classList.remove('show', 'open', 'flipInY');
-                 card.classList.add('match', "bounceIn");
-                 matchedCards.push(card);
-                 if(matchedCards.length === 16 && counter !== 12) {
-                   win();
-                 }
-               })
-               openCards=[];
-               // If cards don't match
-             } else {
-               openCards[0].classList.add('shake', 'incorrect');
-               openCards[1].classList.add('shake', 'incorrect');
-
-               setTimeout(function(){
+             if (openCards.length == 2) {
+               numberOfMoves();
+               // If cards match
+               if(openCards[0].childNodes[0].className === openCards[1].childNodes[0].className){
                  openCards.forEach(card => {
-                   card.classList.remove('show' , 'open', 'shake', 'incorrect', 'flipInY');
+                   card.classList.remove('show', 'open', 'flipInY');
+                   card.classList.add('match', "bounceIn");
+                   matchedCards.push(card);
+                   if(matchedCards.length === 16 && counter !== 12) {
+                     win();
+                   }
                  })
-                   openCards=[];
-               }, 1000);
-             }
-          }
+                 openCards=[];
+                 // If cards don't match
+               } else {
+                 openCards[0].classList.add('shake', 'incorrect');
+                 openCards[1].classList.add('shake', 'incorrect');
+
+                 setTimeout(function(){
+                   openCards.forEach(card => {
+                     card.classList.remove('show' , 'open', 'shake', 'incorrect', 'flipInY');
+                   })
+                     openCards=[];
+                 }, 1000);
+               }
+            }
+           }
          }
        }
-
      });
    });
  });
@@ -294,6 +296,7 @@ hintBtn.addEventListener('click', function () {
 // Win modal when game is complete
 const message = document.querySelector('.message');
 const rating = document.querySelector('.rating');
+const timeTaken = document.querySelector('.time-taken');
 
 const resultModal = () => {
   let modal = document.getElementById('result-modal');
@@ -316,15 +319,24 @@ const resultModal = () => {
 }
 
 const win = () => {
+  let timeSplit = playDuration.split(" : ");
+  let timeMin = `${timeSplit[0]} minutes`;
+  let timeSec = `${timeSplit[1]} seconds`;
+  let timeMSec  = `${timeSplit[2]} mSeconds`;
+
   setTimeout(function () {
     counter;
     star;
     let timeTakenToFinish = playDuration.split(" : ");
     message.innerHTML = "Congratulations! You Won!!!"
     rating.innerHTML = `With ${counter} moves and ${star} stars!`;
+    timeTaken.innerHTML = `You completed the game in ${timeMin} ${timeSec} ${timeMSec}.`
+
     resultModal();
   }, 1000);
 }
+
+// You completed the game in 00 minutes and 37 seconds.
 
 
 //  Circle Loader toggle
